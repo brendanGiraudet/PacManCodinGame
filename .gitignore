@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/PacMan/.vs/PacMan/v16
+/PacMan/PacMan/obj
+/PacMan/PacMan/bin/Debug/netcoreapp3.1
