@@ -6,3 +6,5 @@
 /PacMan/.vs/PacMan/v16
 /PacMan/PacMan/obj
 /PacMan/PacMan/bin/Debug/netcoreapp3.1
+/PacMan/PacMan.Tests/bin/Debug/netcoreapp3.1
+/PacMan/PacMan.Tests/obj
