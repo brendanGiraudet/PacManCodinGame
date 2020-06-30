@@ -10,7 +10,7 @@ namespace PacMan
     /**
      * Grab the pellets as fast as you can!
      **/
-    class Game
+    public class Game
     {
         static void Main(string[] args)
         {
@@ -24,11 +24,9 @@ namespace PacMan
                 int opponentScore = int.Parse(inputs[1]);
 
                 var pacs = GetPacs();
-                pacs.ForEach(Console.Error.WriteLine);
                 var myPac = pacs.Find(p => p.IsMine);
 
                 var pellets = GetPellets();
-                pellets.ForEach(Console.Error.WriteLine);
                 var superPelletes = pellets.Where(p => p.NumberOfEarnedPoints > 1);
 
                 var theBestCoordinate = FindTheBestCoordinate(myPac.Coordinates, superPelletes.Select(sp => sp.Coordinates));
@@ -42,21 +40,30 @@ namespace PacMan
             }
         }
 
-        private static Coordinates FindTheBestCoordinate(Coordinates currentCoordinates, IEnumerable<Coordinates> listOfCoordinates)
+        public static Coordinates FindTheBestCoordinate(Coordinates currentCoordinates, IEnumerable<Coordinates> listOfPossibleCoordinates)
         {
-            var theBestCoordinate = listOfCoordinates.First();
-            int theBestDistance = currentCoordinates.GetDistance(theBestCoordinate);
-            foreach (var coordinates in listOfCoordinates)
+            var wishedCoordinate = listOfPossibleCoordinates.FirstOrDefault();
+            int theBestDistance;
+            try
             {
-                var distance = currentCoordinates.GetDistance(coordinates);
+                theBestDistance = currentCoordinates.GetDistance(wishedCoordinate);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
+            foreach (var theBestCoordinate in listOfPossibleCoordinates)
+            {
+                var distance = currentCoordinates.GetDistance(theBestCoordinate);
                 if(distance < theBestDistance)
                 {
                     theBestDistance = distance;
-                    theBestCoordinate = coordinates;
+                    wishedCoordinate = theBestCoordinate;
                 }
             }
 
-            return theBestCoordinate;
+            return wishedCoordinate;
         }
 
         private static List<Pellet> GetPellets()
